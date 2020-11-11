@@ -29,4 +29,4 @@ hncoca_file=''
 ```
 The standard deviation value is the threshold. Peaks below this value will be displayed (as in the example above). 
 
-***For BMRB values, I have added a 5% variation from the range of bmrb values. Sometimes your values will only be slightly different from the range (1.34 for range 1.344-1.54), this 5% will account for that so only show values that are significantly outside the range).***
+***For BMRB values, I have added a 5% variation from the range of bmrb values. Sometimes your values will only be slightly different from the range (1.34 for range 1.344-1.54), this 5% will account for that so only show values that are significantly outside the range are displayed).***
