@@ -18,7 +18,7 @@ This will enable easy checking of mislabeled, or even misassigned peaks within y
 
 ***To Use***
 
-Simply put all peaklist files and sequence file in the directory with this script. Go into the script and modify the various parameters with the names of your peaklist and sequence file. Leave it blank if you don't have a peaklist for a spectra
+Simply put all peaklist files and sequence file in the directory with this script. ***Make sure the BMRB.csv file is also in the same directory***Go into the script and modify the various parameters with the names of your peaklist and sequence file. Leave it blank if you don't have a peaklist for a spectra
 
 I.E.
 ```
