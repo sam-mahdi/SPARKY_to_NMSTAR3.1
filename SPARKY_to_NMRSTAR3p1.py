@@ -14,19 +14,19 @@ standard_deviation_value is the cutoff for the standard deviation of yoru values
 I would not recommend going above a standard deviation of 0.25
 """
 
-sequence_file='seq.txt'
+sequence_file=''
 
-nhsqc_file='G_ML_Nhsqc.list'
-hnca_file='G_ML_HNCA.list'
-hncacb_file='G_ML_HNCACB.list'
-hncoca_file='G_ML_HNCAi-1.list'
-hnco_file='G_ML_HNCO.list'
-hbhaconh_file='G_ML_HBHACONH.list'
-chsqc_file='G_ML_Chsqc.list'
-cch_tocsy_file='G_ML_CCH_TOCSY.list'
-hcch_tocsy_file='G_ML_HCCH_TOCSY.list'
+nhsqc_file=''
+hnca_file=''
+hncacb_file=''
+hncoca_file=''
+hnco_file=''
+hbhaconh_file=''
+chsqc_file=''
+cch_tocsy_file=''
+hcch_tocsy_file=''
 
-save_file='G_ML_STAR3.1.txt'
+save_file=''
 
 standard_deviation_value=0.25
 
