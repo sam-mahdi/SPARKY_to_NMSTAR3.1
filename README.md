@@ -17,6 +17,7 @@ Additionally, this script can also compare your assigned chemical shifts to BMRB
 This will enable easy checking of mislabeled, or even misassigned peaks within your peaklists. And if your peaklists are good, it has a generated NMRSTAR 3.1 file that can be immediately inputted into other programs (TALOS, CYANA once converted to XEASY https://bmrb.pdbj.org/software/conv/, etc.)
 
 ***To Use***
+
 Simply put all peaklist files and sequence file in the directory with this script. Go into the script and modify the various parameters with the names of your peaklist and sequence file. Leave it blank if you don't have a peaklist for a spectra
 
 I.E.
