@@ -2,7 +2,8 @@
 Converts SPARKY peaklists to NMRSTAR3.1
 
 ***New Version***
-The program has now been updated to include a checker module that first checks the peaklists uploaded to ensure they are in the correct format. ***Make sure to also include the checker.py script in the same directory as the SPARKY_to_NMRSTAR script.
+
+The program has now been updated to include a checker module that first checks the peaklists uploaded to ensure they are in the correct format. ***Make sure to also include the checker.py script in the same directory as the SPARKY_to_NMRSTAR script.***
 
 ***End Edit***
 
