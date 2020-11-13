@@ -12,9 +12,12 @@ Converts SPARKY nhsqc, hnca, hncacb, hncoca, hnco, hbhaconh, chsqc, cch tocsy, a
 While there is a built in plug in in SPARKY to do this already, that plug in does not tell you if you have mislabeled peaks (i.e. accidently labeling a CB as an HB in a cch tocsy). This script provides an option to set an standard deviation value that will print out any values above that standard deviation, and print-out what spectrum that value came from. 
 
 E.G.
+
 VAL 233 HA has a standard deviation of 5.4, when the threshold was set at 0.25
+```
 [chsqc,hbhaconh,cch,hcch]
 [4.35,4.34,4.55,60.29]
+```
 
 Each value corresponds to the spectrum it came from, in the above example we can see the mislabeled peak is from hcch, which results in the high standard deviation. 
 
