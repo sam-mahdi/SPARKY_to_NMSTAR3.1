@@ -1,6 +1,11 @@
 # SPARKY_to_NMSTAR3.1
 Converts SPARKY peaklists to NMRSTAR3.1
 
+***New Version***
+The program has now been updated to include a checker module that first checks the peaklists uploaded to ensure they are in the correct format. ***Make sure to also include the checker.py script in the same directory as the SPARKY_to_NMRSTAR script.
+
+***End Edit***
+
 Converts SPARKY nhsqc, hnca, hncacb, hncoca, hnco, hbhaconh, chsqc, cch tocsy, and hcch tocsy peaklists to NMRSTAR3.1
 
 While there is a built in plug in in SPARKY to do this already, that plug in does not tell you if you have mislabeled peaks (i.e. accidently labeling a CB as an HB in a cch tocsy). This script provides an option to set an standard deviation value that will print out any values above that standard deviation, and print-out what spectrum that value came from. 
