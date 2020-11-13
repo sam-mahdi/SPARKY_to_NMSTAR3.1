@@ -1,6 +1,17 @@
 import re
 
 
+"""
+This script has various functions that look at each file and check various formatting/labeling errors. I.E.:
+If a non-existing amino acid was added (e.g. Z)
+If the amino acid or atom as forgotten (e.g. 334N or Y334)
+If the atoms were incorrectly typed (N was forgotten or typed incorrectly)
+If the wrong name was used for the amino acid (e.g. HA instead of HA2 for Glycine)
+If the 2 dimensions don't match (e.g. Y112N-something-E148HN)
+If the i-1 is not the i-1 (e.g. Y112N-F334N-Y112HN)
+"""
+
+
 accepted_letters=['A','C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','V','W','Y']
 
 def NHSQC_checker(nhsqc_file):
