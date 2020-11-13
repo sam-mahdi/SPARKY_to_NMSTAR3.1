@@ -1,4 +1,5 @@
 import re
+import sys
 
 
 """
@@ -14,19 +15,19 @@ standard_deviation_value is the cutoff for the standard deviation of yoru values
 I would not recommend going above a standard deviation of 0.25
 """
 
-sequence_file=''
+sequence_file='seq.txt'
 
-nhsqc_file=''
-hnca_file=''
-hncacb_file=''
-hncoca_file=''
-hnco_file=''
-hbhaconh_file=''
-chsqc_file=''
-cch_tocsy_file=''
-hcch_tocsy_file=''
+nhsqc_file='G_ML_Nhsqc.list'
+hnca_file='G_ML_HNCA.list'
+hncacb_file='G_ML_HNCACB.list'
+hncoca_file='G_ML_HNCAi-1.list'
+hnco_file='G_ML_HNCO.list'
+hbhaconh_file='G_ML_HBHACONH.list'
+chsqc_file='G_ML_Chsqc.list'
+cch_tocsy_file='G_ML_CCH_TOCSY.list'
+hcch_tocsy_file='G_ML_HCCH_TOCSY.list'
 
-save_file=''
+save_file='G_ML_STAR3.1.txt'
 
 standard_deviation_value=0.25
 
@@ -108,7 +109,7 @@ def NHSQC_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list):
             if atom == nhsqc_split[0].split('-')[1] and amino_acid+residue_number == nhsqc_split[0].split('-')[0][0:-1]:
                 temp_list.append(float(nhsqc_split[2]))
                 spectra_list.append('NHSQC')
-def HCNA_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list):
+def HNCA_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list):
     with open(hnca_file) as hnca:
         for hnca_lines in hnca:
             if re.search('^\w\d+\w+',hnca_lines.strip()) is None:
@@ -190,6 +191,28 @@ def HCCH_TOCSY_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list):
                 temp_list.append(float(hcch_tocsy_split[3]))
                 spectra_list.append('HCCH TOCSY')
 
+def check_peaklist_labels():
+    print('Checking proper labeling and formatting in peaklists')
+    import checker as ch
+    if nhsqc_file != '':
+        ch.NHSQC_checker(nhsqc_file)
+    if hnca_file != '':
+        ch.HNCA_checker(hnca_file)
+    if hncacb_file != '':
+        ch.HNCACB_checker(hncacb_file)
+    if hncoca_file != '':
+        ch.HNCOCA_checker(hncoca_file)
+    if hnco_file != '':
+        ch.HNCO_checker(hnco_file)
+    if chsqc_file != '':
+        ch.CHSQC_checker(chsqc_file)
+    if hbhaconh_file != '':
+        ch.HBHACONH_checker(hbhaconh_file)
+    if cch_tocsy_file != '':
+        ch.CCH_TOCSY_checker(cch_tocsy_file)
+    if hcch_tocsy_file != '':
+        ch.HCCH_TOCSY_checker(hcch_tocsy_file)
+
 
 def nmrstar_file():
     print('Generating NMRSTAR File (Takes a minute depending on size of protein)')
@@ -207,7 +230,7 @@ def nmrstar_file():
         if nhsqc_file != '':
             NHSQC_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list)
         if hnca_file != '':
-            HCNA_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list)
+            HNCA_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list)
         if hncacb_file != '':
             HNCACB_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list)
         if hncoca_file != '':
@@ -260,31 +283,41 @@ def nmrstar_file():
 
 
 
-nmrstar_file()
-print('Comparing to BMRB Values')
-with open(save_file) as file:
-    for lines in file:
-        if re.search('^\d+',lines.strip()) is None:
-            continue
-        star_residue=lines.split()[1]
-        star_amino_acid=lines.split()[3].upper()
-        star_atom=lines.split()[4]
-        star_value=lines.split()[7]
-        with open('bmrb.csv') as file2:
-            for lines2 in file2:
-                if lines2 == '\n':
-                    continue
-                split_lines=lines2.split(',')
-                residue=split_lines[0]
-                if residue == 'comp_id':
-                    continue
-                atom=split_lines[1]
-                chemical_shift=float(split_lines[5])
-                std=float(split_lines[6])
-                lower_half=chemical_shift-std
-                upper_half=chemical_shift+std
-                if star_amino_acid == residue and star_atom == atom:
-                    if float(star_value) > (upper_half+(0.05*upper_half)):
-                        print(f'{star_amino_acid} {star_residue} {star_atom} value {star_value} is outside of range {round(lower_half,3)}-{round(upper_half,3)}\n')
-                    if float(star_value) < (lower_half-(0.05*lower_half)):
-                        print(f'{star_amino_acid} {star_residue} {star_atom} value {star_value} is outside of range {round(lower_half,3)}-{round(upper_half,3)}\n')
+def compare_to_bmrb():
+    print('Comparing to BMRB Values')
+    with open(save_file) as file:
+        for lines in file:
+            if re.search('^\d+',lines.strip()) is None:
+                continue
+            star_residue=lines.split()[1]
+            star_amino_acid=lines.split()[3].upper()
+            star_atom=lines.split()[4]
+            star_value=lines.split()[7]
+            with open('bmrb.csv') as file2:
+                for lines2 in file2:
+                    if lines2 == '\n':
+                        continue
+                    split_lines=lines2.split(',')
+                    residue=split_lines[0]
+                    if residue == 'comp_id':
+                        continue
+                    atom=split_lines[1]
+                    chemical_shift=float(split_lines[5])
+                    std=float(split_lines[6])
+                    lower_half=chemical_shift-std
+                    upper_half=chemical_shift+std
+                    if star_amino_acid == residue and star_atom == atom:
+                        if float(star_value) > (upper_half+(0.05*upper_half)):
+                            print(f'{star_amino_acid} {star_residue} {star_atom} value {star_value} is outside of range {round(lower_half,3)}-{round(upper_half,3)}\n')
+                        if float(star_value) < (lower_half-(0.05*lower_half)):
+                            print(f'{star_amino_acid} {star_residue} {star_atom} value {star_value} is outside of range {round(lower_half,3)}-{round(upper_half,3)}\n')
+
+def main_loop():
+    check_peaklist_labels()
+    print('Check Complete')
+    pause=input('If no errors in formatting, please type continue. \nOtherwise, type quit, correct the errors, and rerun: ')
+    if pause == 'quit':
+        sys.exit()
+    nmrstar_file()
+    compare_to_bmrb()
+main_loop()
