@@ -30,10 +30,10 @@ def NHSQC_checker(nhsqc_file):
                   print(f'Amino Acid {nhsqc_split[0]} amino acid is improperly labeled')
               if re.search('[A-Z]\d+\w+',nhsqc_lines.strip().split()[0]) is None:
                   print(f'Amino Acid {nhsqc_split[0]} format is wrong')
-              if atom_one not in ('N','NE2'):
-                  print(f'Amino Acid {nhsqc_split[0]} amide nitrogen is improperly labeled (NH2 should be NE2)')
-              if atom_two not in {'HN','HE21','HE22'}:
-                  print(f'Amino Acid {nhsqc_split[0]} amide hydrogen is improperly labeled (NH2 should be labeled HE21/HE22)')
+              if atom_one not in {'N','NE2','ND2'}:
+                  print(f'Amino Acid {nhsqc_split[0]} amide nitrogen is improperly labeled (NH2 should be NE2/ND2)')
+              if atom_two not in {'HN','HE21','HE22','HD21','HD22'}:
+                  print(f'Amino Acid {nhsqc_split[0]} amide hydrogen is improperly labeled (NH2 should be labeled HE/D 21/22)')
           except:
               print(f'Program could not analyze, stopped at \n {nhsqc_lines}please check peak, correct, and rerun\n')
     print('\n')
