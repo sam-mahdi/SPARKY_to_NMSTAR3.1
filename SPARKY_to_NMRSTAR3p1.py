@@ -15,19 +15,19 @@ standard_deviation_value is the cutoff for the standard deviation of yoru values
 I would not recommend going above a standard deviation of 0.25
 """
 
-sequence_file=''
+sequence_file='seq.txt'
 
-nhsqc_file=''
-hnca_file=''
-hncacb_file=''
-hncoca_file='t'
-hnco_file=''
-hbhaconh_file=''
-chsqc_file=''
-cch_tocsy_file=''
-hcch_tocsy_file=''
+nhsqc_file='G_ML_Nhsqc.list'
+hnca_file='G_ML_HNCA.list'
+hncacb_file='G_ML_HNCACB.list'
+hncoca_file='G_ML_HNCAi-1.list'
+hnco_file='G_ML_HNCO.list'
+hbhaconh_file='G_ML_HBHACONH.list'
+chsqc_file='G_ML_Chsqc.list'
+cch_tocsy_file='G_ML_CCH_TOCSY.list'
+hcch_tocsy_file='G_ML_HCCH_TOCSY.list'
 
-save_file=''
+save_file='G_ML_STAR3.1.txt'
 
 standard_deviation_value=0.25
 
@@ -48,7 +48,7 @@ def regex_list():
     Alanine_Values=['C','CA','CB','HA','HB','HN','N']
     Arganine_Values=['C','CA','CB','CD','CG','HA','HB2','HB3','HD2','HD3','HG2','HG3','HN','N']
     Aspartic_Acid_Values=['C','CA','CB','HA','HB2','HB3','HN','N']
-    Glutamine_Values=['C','CA','CB','CG','HA','HB2','HB3','HG2','HG3','HN','N']
+    Glutamine_Values=['C','CA','CB','CG','HA','HB2','HB3','HE21','HE22','HG2','HG3','HN','N','NE2']
     Glycine_Values=['C','CA','HA2','HA3','HN','N']
     Isoleucine_Values=['C','CA','CB','CD1','CG1','CG2','HA','HB','HD1','HG12','HG13','HG2','HN','N']
     Luecine_Values=['C','CA','CB','CD1','CD2','CG','HA','HB2','HB3','HD1','HD2','HG','HN','N']
@@ -106,7 +106,7 @@ def NHSQC_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list):
             if amino_acid+residue_number+atom == nhsqc_split[0].split('-')[0]:
                 temp_list.append(float(nhsqc_split[1]))
                 spectra_list.append('NHSQC')
-            if atom == nhsqc_split[0].split('-')[1] and amino_acid+residue_number == nhsqc_split[0].split('-')[0][0:-1]:
+            if atom == nhsqc_split[0].split('-')[1] and amino_acid+residue_number == (re.search('[A-Z]\d+',nhsqc_split[0].split('-')[0])).group(0):
                 temp_list.append(float(nhsqc_split[2]))
                 spectra_list.append('NHSQC')
 def HNCA_peaklist(amino_acid,residue_number,atom,temp_list,spectra_list):
