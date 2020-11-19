@@ -8,7 +8,6 @@ If the atoms were incorrectly typed (N was forgotten or typed incorrectly)
 If the wrong name was used for the amino acid (e.g. HA instead of HA2 for Glycine)
 If the 2 dimensions don't match (e.g. Y112N-something-E148HN)
 If the i-1 is not the i-1 (e.g. Y112N-F334N-Y112HN)
-
 If there is something else wrong, or if the format is so entirely off that the script cannot continue, an error will pop up to inform the user which peak should be corrected
 """
 
@@ -25,16 +24,16 @@ def NHSQC_checker(nhsqc_file):
           nhsqc_split=nhsqc_lines.strip().split()
           try:
               amino_acid=nhsqc_lines.strip().split()[0][0]
-              atom_one=nhsqc_split[0].split('-')[0][-1]
+              atom_one=(re.search('[A-Z]\d+(\w+)',nhsqc_split[0].split('-')[0])).group(1)
               atom_two=nhsqc_split[0].split('-')[1]
               if amino_acid not in accepted_letters:
                   print(f'Amino Acid {nhsqc_split[0]} amino acid is improperly labeled')
               if re.search('[A-Z]\d+\w+',nhsqc_lines.strip().split()[0]) is None:
                   print(f'Amino Acid {nhsqc_split[0]} format is wrong')
-              if atom_one != 'N':
-                  print(f'Amino Acid {nhsqc_split[0]} amide nitrogen is improperly labeled')
-              if atom_two != 'HN':
-                  print(f'Amino Acid {nhsqc_split[0]} amide hydrogen is improperly labeled')
+              if atom_one not in ('N','NE2'):
+                  print(f'Amino Acid {nhsqc_split[0]} amide nitrogen is improperly labeled (NH2 should be NE2)')
+              if atom_two not in {'HN','HE21','HE22'}:
+                  print(f'Amino Acid {nhsqc_split[0]} amide hydrogen is improperly labeled (NH2 should be labeled HE21/HE22)')
           except:
               print(f'Program could not analyze, stopped at \n {nhsqc_lines}please check peak, correct, and rerun\n')
     print('\n')
