@@ -45,7 +45,7 @@ def sequence_list():
     return seq_list
 def regex_list():
     new_list=[]
-    Alanine_Values=['C','CA','CB','HA','HB','HN','N']
+    Alanine_Values=['C','CA','CB','HA','HB','HD21','HD22','HN','N','ND2']
     Arganine_Values=['C','CA','CB','CD','CG','HA','HB2','HB3','HD2','HD3','HG2','HG3','HN','N']
     Aspartic_Acid_Values=['C','CA','CB','HA','HB2','HB3','HN','N']
     Glutamine_Values=['C','CA','CB','CG','HA','HB2','HB3','HE21','HE22','HG2','HG3','HN','N','NE2']
